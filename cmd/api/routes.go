@@ -1,12 +1,15 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/go-chi/chi/v5"
+)
 
-func (app *application) routes() *gin.Engine {
-	r := gin.Default()
-	v1 := r.Group("/v1")
-	v1.GET("/healthcheck", app.healthcheckHandler)
-	v1.POST("/movies", app.createMovieHandler)
-	v1.GET("/movies/:id", app.showMovieHandler)
+func (app *application) routes() *chi.Mux {
+	r := chi.NewRouter()
+	r.Route("/v1", func(r chi.Router) {
+		r.Get("/healthcheck", app.healthcheckHandler)
+		r.Post("/movies", app.createMovieHandler)
+		r.Get("/movies/:id", app.showMovieHandler)
+	})
 	return r
 }

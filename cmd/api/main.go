@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -34,5 +35,5 @@ func main() {
 	}
 
 	r := app.routes()
-	r.Run(fmt.Sprintf("%s:%d", "localhost", app.config.port))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", "localhost", app.config.port), r))
 }
