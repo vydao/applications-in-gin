@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"github.com/gin-gonic/gin"
 )
 
 const version = "1.0.0"
@@ -35,8 +33,6 @@ func main() {
 		logger: logger,
 	}
 
-	r := gin.Default()
-	v1 := r.Group("/v1")
-	v1.GET("/healthcheck", app.healthcheckHandler)
+	r := app.routes()
 	r.Run(fmt.Sprintf("%s:%d", "localhost", app.config.port))
 }
