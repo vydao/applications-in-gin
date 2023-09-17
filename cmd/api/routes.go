@@ -6,6 +6,9 @@ import (
 
 func (app *application) routes() *chi.Mux {
 	r := chi.NewRouter()
+	r.MethodNotAllowed(app.methodNotAllowResponse)
+	r.NotFound(app.notFoundResponse)
+
 	r.Route("/v1", func(r chi.Router) {
 		r.Get("/healthcheck", app.healthcheckHandler)
 		r.Post("/movies", app.createMovieHandler)
