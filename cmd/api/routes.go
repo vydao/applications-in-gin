@@ -9,7 +9,7 @@ func (app *application) routes() *chi.Mux {
 	r.Route("/v1", func(r chi.Router) {
 		r.Get("/healthcheck", app.healthcheckHandler)
 		r.Post("/movies", app.createMovieHandler)
-		r.Get("/movies/:id", app.showMovieHandler)
+		r.Get("/movies/{id}", app.showMovieHandler)
 	})
 	return r
 }

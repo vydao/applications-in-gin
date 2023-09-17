@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+type envelope map[string]interface{}
+
 // Make sure our response as the same format and info
 // encode data to JSON
 func (app *application) writeJSON(w http.ResponseWriter, status int, data interface{}, headers http.Header) error {
