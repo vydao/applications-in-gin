@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -11,7 +12,19 @@ import (
 
 // Create new movie via "POST /v1/movies" endpoint
 func (app *application) createMovieHandler(w http.ResponseWriter, r *http.Request) {
-	// c.JSON(http.StatusCreated, nil)
+	var input struct {
+		Title   string   `json:"title"`
+		Runtime int32    `json:"runtime"`
+		Year    int32    `json:"year"`
+		Genres  []string `json:"genres"`
+	}
+
+	err := app.readJSON(w, r, &input)
+	if err != nil {
+		app.badRequestResponse(w, r, err)
+		return
+	}
+	fmt.Fprintf(w, "%+v\n", input)
 }
 
 // Get movie details by id "GET /v1/movies/:id"
